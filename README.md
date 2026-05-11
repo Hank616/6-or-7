@@ -2,7 +2,7 @@
 ML tells whether you're drawing 6 or 7, or None
 # In progress...
 # ACCURACY: ABOUT 68%-84%
-# RUN sixes_testing.py :
+# RUN testing.py :
 SIX:  99.99900000000001 % SEVEN:  0.0 % NONE:  0.001 % ACTUAL: 6<br>
 SIX:  100.0 % SEVEN:  0.0 % NONE:  0.0 % ACTUAL: 6<br>
 SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>

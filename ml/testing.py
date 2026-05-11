@@ -5,7 +5,7 @@ from perceptron import Perceptron
 
 for k in range(10): 
     BASE_DIR = Path(__file__).resolve().parent
-    data_path_sixes = BASE_DIR.parent / "data" / "sixes.json"
+    data_path_sixes = BASE_DIR.parent / "data" / "library.json"
 
     with open(data_path_sixes) as f:
         raw_data = json.load(f)
@@ -74,7 +74,7 @@ for k in range(10):
 
 
     # TESTING part
-    data_path_testing = BASE_DIR.parent / "data" / "sixes_testing.json"
+    data_path_testing = BASE_DIR.parent / "data" / "testing.json"
     correct = 0
     test_data = []
     with open(data_path_testing) as f:

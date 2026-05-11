@@ -3,7 +3,7 @@ import json
 from perceptron import Perceptron
 
 BASE_DIR = Path(__file__).resolve().parent
-data_path_sixes = BASE_DIR.parent / "data" / "sixes.json"
+data_path_sixes = BASE_DIR.parent / "data" / "library.json"
 
 with open(data_path_sixes) as f:
     raw_data = json.load(f)
