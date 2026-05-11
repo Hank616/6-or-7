@@ -103,7 +103,7 @@ for k in range(10):
         ezn = math.exp(n.score(x))
         ez_total = ez6 + ez7 + ezn
 
-        print(round(ez6/ez_total,5)*100, "%", round(ez7/ez_total,5)*100, "%", round(ezn/ez_total,5)*100, "%", "ACTUAL:", y) 
+        print("SIX: ",round(ez6/ez_total,5)*100, "% SEVEN: ", round(ez7/ez_total,5)*100, "% NONE: ", round(ezn/ez_total,5)*100, "%", "ACTUAL:", y) 
         
         num1 = ez6/ez_total
         num2 = ez7/ez_total
@@ -120,6 +120,6 @@ for k in range(10):
         else:
             print("WRONG PREDICTION!")
 
-    print("ACCURACY:", correct / len(test_data) * 100, "%")
+    print("ACCURACY:", round(correct / len(test_data) * 100, 2), "%")
     print()
     

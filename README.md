@@ -1,3 +1,28 @@
 # 6-or-7
-ML tells whether you're drawing 6 or 7
+ML tells whether you're drawing 6 or 7, or None
 # In progress...
+# ACCURACY: ABOUT 68%-84%
+# RUN sixes_testing.py :
+SIX:  99.99900000000001 % SEVEN:  0.0 % NONE:  0.001 % ACTUAL: 6<br>
+SIX:  100.0 % SEVEN:  0.0 % NONE:  0.0 % ACTUAL: 6<br>
+SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>
+SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>
+SIX:  100.0 % SEVEN:  0.0 % NONE:  0.0 % ACTUAL: 6<br>
+SIX:  99.753 % SEVEN:  0.0 % NONE:  0.247 % ACTUAL: 6<br>
+SIX:  0.0 % SEVEN:  0.247 % NONE:  99.753 % ACTUAL: -1<br>
+SIX:  0.0 % SEVEN:  0.247 % NONE:  99.753 % ACTUAL: -1<br>
+SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>
+SIX:  0.001 % SEVEN:  0.001 % NONE:  99.99900000000001 % ACTUAL: 6<br>
+WRONG PREDICTION!<br>
+SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: 7<br>
+WRONG PREDICTION!<br>
+SIX:  0.0 % SEVEN:  100.0 % NONE:  0.0 % ACTUAL: 7<br>
+SIX:  0.0 % SEVEN:  99.331 % NONE:  0.6689999999999999 % ACTUAL: 7<br>
+SIX:  0.0 % SEVEN:  73.10600000000001 % NONE:  26.894000000000002 % ACTUAL: 7<br>
+SIX:  0.0 % SEVEN:  95.257 % NONE:  4.743 % ACTUAL: 7<br>
+SIX:  0.0 % SEVEN:  100.0 % NONE:  0.0 % ACTUAL: 7<br>
+SIX:  0.0 % SEVEN:  99.909 % NONE:  0.091 % ACTUAL: 7<br>
+SIX:  0.0 % SEVEN:  100.0 % NONE:  0.0 % ACTUAL: 7<br>
+SIX:  0.091 % SEVEN:  99.909 % NONE:  0.0 % ACTUAL: -1<br>
+WRONG PREDICTION!<br>
+ACCURACY: 84.21 %<br>
