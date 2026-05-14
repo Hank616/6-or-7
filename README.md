@@ -81,7 +81,9 @@ Predict
 
 ---
 
-# Test Overall Accuracy
+# Test Overall Accuracy  
+  
+$$\color{red}{\textbf{Current Accuracy: 68\\%}\sim\textbf{84\\%}}$$
 
 Run:
 
