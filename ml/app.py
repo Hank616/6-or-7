@@ -1,54 +1,110 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-import json
 import math
 from pathlib import Path
+import json
+
+from perceptron import Perceptron
+
+
+# =====================================
+# FLASK SETUP
+# =====================================
 
 app = Flask(__name__)
 
 CORS(app)
 
+
+# =====================================
+# LOAD TRAINING DATA
+# =====================================
+
 BASE_DIR = Path(__file__).resolve().parent
 
+data_path = BASE_DIR.parent / "data" / "library.json"
 
-# =========================
-# LOAD MODEL
-# =========================
+with open(data_path) as f:
 
-def load_model(filename):
-
-    path = BASE_DIR.parent / "models" / filename
-
-    with open(path) as f:
-
-        model = json.load(f)
-
-    return model["w"], model["b"]
+    raw_data = json.load(f)
 
 
-# load all models
-six_w, six_b = load_model("six_weights.json")
+# =====================================
+# TRAIN SIX MODEL
+# =====================================
 
-seven_w, seven_b = load_model("seven_weights.json")
+dataset_sixes = []
 
-none_w, none_b = load_model("none_weights.json")
+for sample in raw_data:
 
+    x = sample["pixels"]
 
-# =========================
-# SCORE FUNCTION
-# =========================
+    if sample["label"] == 6:
+        y = 1
+    else:
+        y = -1
 
-def score(x, w, b):
-
-    return sum(
-        xi * wi for xi, wi in zip(x, w)
-    ) + b
+    dataset_sixes.append((x, y))
 
 
-# =========================
-# SOFTMAX
-# =========================
+p = Perceptron(63)
+
+p.train(dataset_sixes, epochs=1000)
+
+
+# =====================================
+# TRAIN SEVEN MODEL
+# =====================================
+
+dataset_sevens = []
+
+for sample in raw_data:
+
+    x = sample["pixels"]
+
+    if sample["label"] == 7:
+        y = 1
+    else:
+        y = -1
+
+    dataset_sevens.append((x, y))
+
+
+k = Perceptron(63)
+
+k.train(dataset_sevens, epochs=1000)
+
+
+# =====================================
+# TRAIN NONE MODEL
+# =====================================
+
+dataset_nones = []
+
+for sample in raw_data:
+
+    x = sample["pixels"]
+
+    if sample["label"] == -1:
+        y = 1
+    else:
+        y = -1
+
+    dataset_nones.append((x, y))
+
+
+n = Perceptron(63)
+
+n.train(dataset_nones, epochs=1000)
+
+
+print("\nMODELS TRAINED SUCCESSFULLY")
+
+
+# =====================================
+# SOFTMAX FUNCTION
+# =====================================
 
 def softmax(scores):
 
@@ -59,9 +115,9 @@ def softmax(scores):
     return [e / total for e in exps]
 
 
-# =========================
+# =====================================
 # PREDICT ROUTE
-# =========================
+# =====================================
 
 @app.route("/predict", methods=["POST"])
 
@@ -69,61 +125,127 @@ def predict():
 
     data = request.json
 
-    pixels = data["pixels"]
+    x = data["pixels"]
 
 
-    # model scores
-    z6 = score(pixels, six_w, six_b)
+    # raw scores
+    z6 = p.score(x)
 
-    z7 = score(pixels, seven_w, seven_b)
+    z7 = k.score(x)
 
-    zNone = score(pixels, none_w, none_b)
-
-
-    # probabilities
-    probs = softmax([z6, z7, zNone])
+    zn = n.score(x)
 
 
+    # softmax probabilities
+    probs = softmax([z6, z7, zn])
+
+
+    six_prob = probs[0]
+
+    seven_prob = probs[1]
+
+    none_prob = probs[2]
+
+
+    # prediction
+    if six_prob > seven_prob and six_prob > none_prob:
+
+        expectation = 6
+
+    elif seven_prob > six_prob and seven_prob > none_prob:
+
+        expectation = 7
+
+    else:
+
+        expectation = -1
+
+
+    print("\n======================")
+    print("USER INPUT:")
+    print(x)
+
+    print("\nSCORES:")
+    print("6:", z6)
+    print("7:", z7)
+    print("NONE:", zn)
+
+    print("\nPROBABILITIES:")
+    print("6:", round(six_prob * 100, 2), "%")
+    print("7:", round(seven_prob * 100, 2), "%")
+    print("NONE:", round(none_prob * 100, 2), "%")
+
+    print("\nPREDICTION:", expectation)
+    print("======================\n")
+
+
+    # send JSON back to frontend
     return jsonify({
 
-        "six": probs[0],
-        "seven": probs[1],
-        "none": probs[2],
+        "six": six_prob,
 
+        "seven": seven_prob,
+
+        "none": none_prob,
+
+        "prediction": expectation,
+
+
+        # scores
         "six_score": z6,
+
         "seven_score": z7,
-        "none_score": zNone,
 
-        "six_bias": six_b,
-        "seven_bias": seven_b,
-        "none_bias": none_b,
+        "none_score": zn,
 
-        # show only first 15 weights
-        "six_weights": six_w[:15],
-        "seven_weights": seven_w[:15],
-        "none_weights": none_w[:15]
+
+        # bias
+        "six_bias": p.b,
+
+        "seven_bias": k.b,
+
+        "none_bias": n.b,
+
+
+        # weights
+        "six_weights": p.w,
+
+        "seven_weights": k.w,
+
+        "none_weights": n.w
     })
 
 
-# =========================
+# =====================================
 # RETRAIN ROUTE
-# =========================
+# =====================================
 
 @app.route("/retrain", methods=["POST"])
 
 def retrain():
 
-    # run training file
-    import train
+    global p, k, n
+
+    p = Perceptron(63)
+    p.train(dataset_sixes, epochs=1000)
+
+    k = Perceptron(63)
+    k.train(dataset_sevens, epochs=1000)
+
+    n = Perceptron(63)
+    n.train(dataset_nones, epochs=1000)
+
+    print("\nMODELS RETRAINED")
 
     return jsonify({
-        "message":"Model retrained successfully!"
+
+        "message": "Models retrained successfully!"
     })
 
 
-# =========================
+# =====================================
 # START SERVER
-# =========================
+# =====================================
 
 if __name__ == "__main__":
 

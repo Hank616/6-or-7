@@ -1,28 +1,137 @@
-# 6-or-7
-ML tells whether you're drawing 6 or 7, or None
-# In progress...
-# ACCURACY: ABOUT 68%-84%
-# RUN testing.py :
-SIX:  99.99900000000001 % SEVEN:  0.0 % NONE:  0.001 % ACTUAL: 6<br>
-SIX:  100.0 % SEVEN:  0.0 % NONE:  0.0 % ACTUAL: 6<br>
-SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>
-SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>
-SIX:  100.0 % SEVEN:  0.0 % NONE:  0.0 % ACTUAL: 6<br>
-SIX:  99.753 % SEVEN:  0.0 % NONE:  0.247 % ACTUAL: 6<br>
-SIX:  0.0 % SEVEN:  0.247 % NONE:  99.753 % ACTUAL: -1<br>
-SIX:  0.0 % SEVEN:  0.247 % NONE:  99.753 % ACTUAL: -1<br>
-SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: -1<br>
-SIX:  0.001 % SEVEN:  0.001 % NONE:  99.99900000000001 % ACTUAL: 6<br>
-WRONG PREDICTION!<br>
-SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: 7<br>
-WRONG PREDICTION!<br>
-SIX:  0.0 % SEVEN:  100.0 % NONE:  0.0 % ACTUAL: 7<br>
-SIX:  0.0 % SEVEN:  99.331 % NONE:  0.6689999999999999 % ACTUAL: 7<br>
-SIX:  0.0 % SEVEN:  73.10600000000001 % NONE:  26.894000000000002 % ACTUAL: 7<br>
-SIX:  0.0 % SEVEN:  95.257 % NONE:  4.743 % ACTUAL: 7<br>
-SIX:  0.0 % SEVEN:  100.0 % NONE:  0.0 % ACTUAL: 7<br>
-SIX:  0.0 % SEVEN:  99.909 % NONE:  0.091 % ACTUAL: 7<br>
-SIX:  0.0 % SEVEN:  100.0 % NONE:  0.0 % ACTUAL: 7<br>
-SIX:  0.091 % SEVEN:  99.909 % NONE:  0.0 % ACTUAL: -1<br>
-WRONG PREDICTION!<br>
-ACCURACY: 84.21 %<br>
+# 6 or 7 AI
+
+A simple handwritten digit classifier built from scratch using perceptrons and Flask.
+
+The user draws on a 7×9 pixel canvas, and the model predicts:
+- 6
+- 7
+- None
+
+No ML libraries are used.
+
+---
+
+# Project Structure
+
+```txt
+6-or-7/
+
+├── frontend/
+│     ├── run_it.html
+│     ├── script.js
+│     └── style.css
+│
+├── backend/
+│     ├── app.py
+│     ├── perceptron.py
+│     ├── testing.py
+│     └── train.py
+│
+├── data/
+│     ├── library.json
+│     └── testing.json
+│
+└── README.md
+```
+
+---
+
+# Install
+
+```bash
+pip install flask flask-cors
+```
+
+---
+
+# Run the Backend
+
+Open terminal:
+
+```bash
+cd ml
+python app.py
+```
+
+You should see:
+
+```txt
+Running on http://127.0.0.1:5000
+```
+
+Keep this terminal open.
+
+---
+
+# Run the Frontend
+
+Open:
+
+```txt
+frontend/run_it.html
+```
+
+in your browser.
+
+Draw a digit and click:
+
+```txt
+Predict
+```
+
+---
+
+# Test Overall Accuracy
+
+Run:
+
+```bash
+cd ml
+python testing.py
+```
+
+Example:
+
+```txt
+SIX:  0.0 % SEVEN:  99.331 % NONE:  0.6689999999999999 % ACTUAL: 7
+SIX:  0.0 % SEVEN:  0.247 % NONE:  99.753 % ACTUAL: -1
+SIX:  0.001 % SEVEN:  0.001 % NONE:  99.99900000000001 % ACTUAL: 6
+WRONG PREDICTION!
+SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: 7
+ACCURACY: 84.21 %
+```
+
+---
+
+# Basic Math
+
+Each perceptron computes a score:
+
+```math
+z = w \cdot x + b
+```
+
+Where:
+- `w` = weight vector
+- `x` = pixel vector
+- `b` = bias
+
+The scores are converted into probabilities using softmax:
+
+```math
+P_i = \frac{e^{z_i}}{\sum_j e^{z_j}}
+```
+
+The model predicts the class with the highest probability.
+
+---
+
+# Notes
+
+This project was built for learning:
+- perceptrons
+- hyperplanes
+- softmax
+- linear classification
+- frontend/backend communication
+- basic machine learning systems
