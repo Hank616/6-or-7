@@ -12,7 +12,7 @@ dataset_sixes = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x =  Perceptron.normalize(sample["pixels"])
     if sample["label"] == 6:
         y = 1
     else:  
@@ -39,7 +39,7 @@ dataset_sevens = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
     if sample["label"] == 7:
         y = 1
     else:  
@@ -61,7 +61,7 @@ dataset_nones = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
     if sample["label"] == -1:
         y = 1
     else:  

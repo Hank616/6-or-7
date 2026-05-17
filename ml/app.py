@@ -38,7 +38,7 @@ dataset_sixes = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
 
     if sample["label"] == 6:
         y = 1
@@ -61,7 +61,7 @@ dataset_sevens = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x =  Perceptron.normalize(sample["pixels"])
 
     if sample["label"] == 7:
         y = 1
@@ -84,7 +84,7 @@ dataset_nones = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x =  Perceptron.normalize(sample["pixels"])
 
     if sample["label"] == -1:
         y = 1
@@ -125,7 +125,7 @@ def predict():
 
     data = request.json
 
-    x = data["pixels"]
+    x =  Perceptron.normalize(data["pixels"])
 
 
     # raw scores

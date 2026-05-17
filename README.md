@@ -83,7 +83,7 @@ Predict
 
 # Test Overall Accuracy  
   
-$$\color{red}{\textbf{Current Accuracy: 68\\%}\sim\textbf{84\\%}}$$
+$$\color{red}{\textbf{Current Accuracy: 94\\%}\sim\textbf{100\\%}}$$
 
 Run:
 
@@ -100,7 +100,7 @@ SIX:  0.0 % SEVEN:  0.247 % NONE:  99.753 % ACTUAL: -1
 SIX:  0.001 % SEVEN:  0.001 % NONE:  99.99900000000001 % ACTUAL: 6
 WRONG PREDICTION!
 SIX:  0.0 % SEVEN:  0.0 % NONE:  100.0 % ACTUAL: 7
-ACCURACY: 84.21 %
+ACCURACY: 94.21 %
 ```
 
 ---

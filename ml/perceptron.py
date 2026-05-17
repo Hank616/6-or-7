@@ -49,3 +49,52 @@ class Perceptron:
     def probability(self, x):
         z = self.score(x)
         return 1 / (1 + math.exp(-z))
+    
+    def normalize(pixels):
+
+        grid = []
+
+        # convert to 2D
+        for i in range(0, 63, 7):
+
+            grid.append(pixels[i:i+7])
+
+
+        # find top
+        top = 9
+
+        left = 7
+
+        for r in range(9):
+
+            for c in range(7):
+
+                if grid[r][c] == 1:
+
+                    top = min(top, r)
+
+                    left = min(left, c)
+
+
+        # new blank grid
+        new_grid = [[0]*7 for _ in range(9)]
+
+
+        # shift
+        for r in range(top, 9):
+
+            for c in range(left, 7):
+
+                if grid[r][c] == 1:
+
+                    new_grid[r-top][c-left] = 1
+
+
+        # flatten back
+        result = []
+
+        for row in new_grid:
+
+            result.extend(row)
+
+        return result

@@ -14,7 +14,7 @@ dataset_sixes = []
 
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
     if sample["label"] == 6:
         y = 1
     else:  
@@ -31,7 +31,7 @@ p.train(dataset_sixes, epochs=1000)
 dataset_sevens = []
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
     if sample["label"] == 7:
         y = 1
     else:  
@@ -48,7 +48,7 @@ k.train(dataset_sevens, epochs=1000)
 dataset_nones = []
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
     if sample["label"] == -1:
         y = 1
     else:  
@@ -67,7 +67,7 @@ with open(data_path_testing) as f:
     raw_data = json.load(f)
 for sample in raw_data:
 
-    x = sample["pixels"]
+    x = Perceptron.normalize(sample["pixels"])
 
     test_data.append((x))
 

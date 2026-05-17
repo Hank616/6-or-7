@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 from perceptron import Perceptron
 
-for k in range(10): 
+for k in range(100): 
     BASE_DIR = Path(__file__).resolve().parent
     data_path_sixes = BASE_DIR.parent / "data" / "library.json"
 
@@ -14,7 +14,7 @@ for k in range(10):
 
     for sample in raw_data:
 
-        x = sample["pixels"]
+        x = Perceptron.normalize(sample["pixels"])
         if sample["label"] == 6:
             y = 1
         else:  
@@ -36,7 +36,7 @@ for k in range(10):
 
     for sample in raw_data:
 
-        x = sample["pixels"]
+        x = Perceptron.normalize(sample["pixels"])
         if sample["label"] == 7:
             y = 1
         else:  
@@ -56,7 +56,7 @@ for k in range(10):
 
     for sample in raw_data:
 
-        x = sample["pixels"]
+        x = Perceptron.normalize(sample["pixels"])
         if sample["label"] == -1:
             y = 1
         else:  
@@ -81,7 +81,7 @@ for k in range(10):
         raw_data = json.load(f)
     for sample in raw_data:
 
-        x = sample["pixels"]
+        x = Perceptron.normalize(sample["pixels"])
         y = sample["label"]
 
         test_data.append((x, y))
@@ -103,7 +103,7 @@ for k in range(10):
         ezn = math.exp(n.score(x))
         ez_total = ez6 + ez7 + ezn
 
-        print("SIX: ",round(ez6/ez_total,5)*100, "% SEVEN: ", round(ez7/ez_total,5)*100, "% NONE: ", round(ezn/ez_total,5)*100, "%", "ACTUAL:", y) 
+        #print("SIX: ",round(ez6/ez_total,5)*100, "% SEVEN: ", round(ez7/ez_total,5)*100, "% NONE: ", round(ezn/ez_total,5)*100, "%", "ACTUAL:", y) 
         
         num1 = ez6/ez_total
         num2 = ez7/ez_total
@@ -117,8 +117,8 @@ for k in range(10):
             
         if y == expectation:
             correct += 1
-        else:
-            print("WRONG PREDICTION!")
+        # else:
+        #     print("WRONG PREDICTION!")
 
     print("ACCURACY:", round(correct / len(test_data) * 100, 2), "%")
     print()
