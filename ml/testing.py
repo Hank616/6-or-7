@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 from perceptron import Perceptron
 
-for k in range(100): 
+for k in range(10): 
     BASE_DIR = Path(__file__).resolve().parent
     data_path_sixes = BASE_DIR.parent / "data" / "library.json"
 
@@ -113,6 +113,10 @@ for k in range(100):
         elif num2 > num1 and num2 > num3:
             expectation = 7
         else:            expectation = -1
+
+        if num1 < 0.5 and num2 < 0.5:
+
+            expectation = -1
         
             
         if y == expectation:

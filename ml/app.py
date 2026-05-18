@@ -160,6 +160,10 @@ def predict():
 
         expectation = -1
 
+    if six_prob < 0.5 and seven_prob < 0.5:
+
+        expectation = -1
+
 
     print("\n======================")
     print("USER INPUT:")
